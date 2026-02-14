@@ -1,6 +1,6 @@
 {
   "name": "stocks",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "56+ financial data tools via Yahoo Finance. Auto-routes stock prices, fundamentals, earnings, dividends, options, crypto, forex, commodities, news, and more.",
   "entry": "scripts/yfinance_ai.py",
   "venv": "/home/openclaw/.openclaw/venv/stocks",

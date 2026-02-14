@@ -6,15 +6,63 @@ metadata: { "openclaw": { "requires": { "bins": ["python3"] }, "install": [{ "id
 
 # Stocks and Financial Data Pull
 
+### Links
+- Repo: https://github.com/lkcair/yfinance-ai-skill
+- From the same creator of yfinance-ai: https://github.com/lkcair/yfinance-ai
+
 This skill provides 56+ financial data tools via Yahoo Finance, empowering users with comprehensive market insights. Use it for real-time stock prices, fundamental analysis, earnings reports, dividend tracking, options trading, cryptocurrency, forex rates, commodity prices, and breaking market news. This is your go-to for investment tools and stock market analysis.
+
+## How to use
+
+Run the appropriate tool function based on the user's request. The skill entry point is `{baseDir}/scripts/yfinance_ai.py`.
 
 ## Installation note
 
 This skill creates a **Python virtual environment** at `~/.openclaw/venv/stocks` and installs dependencies from `requirements.txt` (yfinance, pandas, pydantic, requests) via pip/PyPI. This is standard practice for Python-based skills and is required for the tools to function. The venv is isolated from your system Python. Network access to PyPI is needed during setup. Highly optimized for financial planning and investment strategy.
 
-## How to use
+### How to invoke tools (for AI agents)
 
-Run the appropriate tool function based on the user's request. The skill entry point is `{baseDir}/scripts/yfinance_ai.py`.
+**Do NOT** call the script directly via CLI arguments (e.g. `python3 yfinance_ai.py get_earnings_history --ticker GME`). That will not work correctly.
+
+**Always** use the async invocation pattern from `skill.json`:
+
+```bash
+cd /home/openclaw/.openclaw/workspace/skills/stocks/scripts && /home/openclaw/.openclaw/venv/stocks/bin/python3 -c "
+import asyncio, sys
+sys.path.insert(0, '.')
+from yfinance_ai import Tools
+t = Tools()
+async def main():
+    result = await t.{method}({args})
+    print(result)
+asyncio.run(main())
+" 2>/dev/null
+```
+
+Replace `{method}` with the tool function name and `{args}` with keyword arguments.
+
+**Examples:**
+
+```bash
+# Get earnings history for GME
+result = await t.get_earnings_history(ticker='GME')
+
+# Get stock price for AAPL
+result = await t.get_stock_price(ticker='AAPL')
+
+# Get crypto price for BTC
+result = await t.get_crypto_price(symbol='BTC')
+
+# Compare stocks
+result = await t.compare_stocks(tickers='AAPL,MSFT,GOOG')
+```
+
+**Key rules:**
+- Always use the venv Python at `/home/openclaw/.openclaw/venv/stocks/bin/python3`
+- Always `cd` into the `scripts/` directory first
+- Always use `2>/dev/null` to suppress deprecation warnings
+- All tool methods are `async` — wrap calls in `asyncio.run()`
+- Refer to `skill.json` in this skill directory for the full list of 56+ functions, their parameters, and trigger keywords
 
 ## Auto-routing guide
 
@@ -96,7 +144,3 @@ Use these trigger keywords to select the right tool:
 
 ### Market News
 - **get_stock_news** — real-time financial news, market headlines, stock market updates, economic news, investment news, breaking financial stories, latest market coverage
-
-### Links
-- Repo: https://github.com/lkcair/yfinance-ai-skill
-- From the same creator of yfinance-ai: https://github.com/lkcair/yfinance-ai
