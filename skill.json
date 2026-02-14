@@ -1,14 +1,14 @@
 {
-  "name": "financial",
+  "name": "stocks",
   "version": "3.0.4",
   "description": "56+ financial data tools via Yahoo Finance. Auto-routes stock prices, fundamentals, earnings, dividends, options, crypto, forex, commodities, news, and more.",
   "entry": "scripts/yfinance_ai.py",
-  "venv": "/home/openclaw/.openclaw/venv/finance",
+  "venv": "/home/openclaw/.openclaw/venv/stocks",
   "setup": [
-    "python3 -m venv /home/openclaw/.openclaw/venv/finance",
-    "source /home/openclaw/.openclaw/venv/finance/bin/activate && pip install -r /home/openclaw/.openclaw/workspace/skills/financial/requirements.txt"
+    "python3 -m venv /home/openclaw/.openclaw/venv/stocks",
+    "source /home/openclaw/.openclaw/venv/stocks/bin/activate && pip install -r /home/openclaw/.openclaw/workspace/skills/stocks/requirements.txt"
   ],
-  "invocation": "cd /home/openclaw/.openclaw/workspace/skills/financial/scripts && /home/openclaw/.openclaw/venv/finance/bin/python3 -c \"\nimport asyncio, sys\nsys.path.insert(0, '.')\nfrom yfinance_ai import Tools\nt = Tools()\nasync def main():\n    result = await t.{method}({args})\n    print(result)\nasyncio.run(main())\n\" 2>/dev/null",
+  "invocation": "cd /home/openclaw/.openclaw/workspace/skills/stocks/scripts && /home/openclaw/.openclaw/venv/stocks/bin/python3 -c \"\nimport asyncio, sys\nsys.path.insert(0, '.')\nfrom yfinance_ai import Tools\nt = Tools()\nasync def main():\n    result = await t.{method}({args})\n    print(result)\nasyncio.run(main())\n\" 2>/dev/null",
   "functions": {
     "compare_stocks": {
       "description": "Side-by-side comparison of multiple stocks",
