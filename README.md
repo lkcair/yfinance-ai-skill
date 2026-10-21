@@ -12,7 +12,7 @@ Skill page: [clawhub.ai/lkcair/stocks](https://clawhub.ai/lkcair/stocks). The ag
 
 ## Also available
 
-- **MCP server** (Claude, Cursor, VS Code, any MCP client): `uvx yfinance-ai`, see [yfinance-ai-mcp](https://github.com/lkcair/yfinance-ai-mcp)
+- **MCP server** (Claude, Cursor, VS Code, any MCP client): `uvx yfinance-ai@latest`, see [yfinance-ai-mcp](https://github.com/lkcair/yfinance-ai-mcp)
 - **OpenWebUI tool**, thousands of downloads: see [yfinance-ai](https://github.com/lkcair/yfinance-ai)
 - **SEC filings skill**: `openclaw skills install @lkcair/sec`
 
